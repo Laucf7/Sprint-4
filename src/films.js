@@ -3,14 +3,14 @@ function getAllDirectors(movies) {
   let result = movies.map(function (movies) {
     return movies.director;
   });
-  console.log("EXERCICE 1 ->", result);
+  //console.log("EXERCICE 1 ->", result);
   return result;
 }
 
 // Exercise 2: Get the films of a certain director
 function getMoviesFromDirector(movies, director) {
   const directorMovies = movies.filter(moviesFromSame => moviesFromSame.director === director);
-  console.log(directorMovies);
+  //console.log(directorMovies);
   return directorMovies;
 
 }
@@ -28,23 +28,23 @@ function getMoviesFromDirector(movies, director) {
 
 //REFACTORITZACIÓ EXERCICI 3:
 
-function averageScore (array) {
+function averageScore(array) {
 
   const moviesWithScore = array.filter(movie => movie.score !== '');
 
-  const averageScore = moviesWithScore.reduce(function(acumulador, movie) {
+  const averageScore = moviesWithScore.reduce(function (acumulador, movie) {
     return acumulador + movie.score;
   }, 0);
 
   const total = parseFloat((averageScore / moviesWithScore.length).toFixed(2));
-  console.log("AVERAGE SCore", total);
+  //console.log("AVERAGE SCore", total);
   return total;
 
 }
 
 function moviesAverageOfDirector(movies, director) {
   const directorMovies = getMoviesFromDirector(movies, director);
-  const result = averageScore (directorMovies);
+  const result = averageScore(directorMovies);
   console.log('Ex 3 refactoritzat:', result);
   return result;
 
@@ -69,7 +69,7 @@ function orderAlphabetically(movies) {
   });
 
   const first20 = ordenAlfa.slice(0, 20);
-  console.log(first20);
+  //console.log(first20);
   return first20;
 
 }
@@ -78,21 +78,41 @@ function orderAlphabetically(movies) {
 function orderByYear(movies) {
 
   const newMovies = [...movies];
-  const orderYears = newMovies.sort((a,b) => a.year - b.year || a.title.localeCompare(b.title));
-    console.log(orderYears);
-    return orderYears;
+  const orderYears = newMovies.sort((a, b) => a.year - b.year || a.title.localeCompare(b.title));
+  //console.log(orderYears);
+  return orderYears;
 }
 
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory(movies, genre) {
   const genreMovies = movies.filter(movie => movie.genre.includes(genre));
   const result = averageScore(genreMovies);
-  console.log('Exercici 6:', result)
+  //console.log('Exercici 6:', result)
   return result;
 }
 
 // Exercise 7: Modify the duration of movies to minutes
-function hoursToMinutes() {
+function hoursToMinutes(array) {
+
+  const onlyMinutes = array.map(movie => {
+    const durationMatch = movie.duration.match(/(\d+)h(?: (\d+)min)?/);
+    if (durationMatch) {
+      const hours = parseInt(durationMatch[1]);
+      const minutes = durationMatch[2] ? parseInt(durationMatch[2]) : 0;
+      const allInMinutes = hours * 60 + minutes;
+      return {
+        movie, duration: allInMinutes
+      };
+
+    } else {
+      return movie;
+    }
+  });
+
+  console.log(onlyMinutes);
+  return onlyMinutes;
+
+
 
 }
 
